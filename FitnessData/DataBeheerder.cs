@@ -13,9 +13,9 @@ namespace FitnessData
         {
         }
 
-        public List<LoopTraining> OverzichtTraining(Dictionary<int, LoopTraining> training, int klantnr)
+        public void OverzichtTrainingKlant(Dictionary<int, LoopTraining> training, int klantnr)
         {
-            List<LoopTraining> trainingen = new List<LoopTraining>();
+            
             foreach(LoopTraining lt in training.Values)
             {
                 if(lt.KlantNr == klantnr)
@@ -23,7 +23,19 @@ namespace FitnessData
                     Console.WriteLine(lt.ToString());
                 }
             }
-            return trainingen;
+            
+        }
+        public void OverzichtTrainingDag(Dictionary<int, LoopTraining> training, DateTime dag)
+        {
+
+            foreach (LoopTraining lt in training.Values)
+            {
+                if (lt.Datum.Day == dag.Day && lt.Datum.Month == dag.Month && lt.Datum.Year == dag.Year )
+                {
+                    Console.WriteLine(lt.ToString());
+                }
+            }
+
         }
     }
 }

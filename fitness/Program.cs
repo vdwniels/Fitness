@@ -15,22 +15,29 @@ namespace fitness
             string logpad = @"C:\Users\niels\OneDrive\Documenten\progr gevorderd\fitness\insertRunning (3)";
             string logbestandsnaam = "insertRunningLog.txt";
             string bronpad = @"C:\Users\niels\OneDrive\Documenten\progr gevorderd\fitness\insertRunning (3)";
-            string bronbestandsnaam = "insertRunningTest.txt";
+            string bronbestandsnaam = "insertRunning.sql";
 
             string loglocatie = Path.Combine(logpad, logbestandsnaam);
             string bronlocatie = Path.Combine(bronpad, bronbestandsnaam);
             Bestandverwerker b = new Bestandverwerker();
-            //training = b.LeesBestand(loglocatie,bronlocatie);
-            LoopTraining lt = new LoopTraining(1, new DateTime(2021, 9, 29, 16, 53, 00), 2, 55, 14);
+            training = b.LeesBestand(loglocatie,bronlocatie);
+            /*LoopTraining lt = new LoopTraining(-1, new DateTime(2021, 9, 29, 16, 53, 00), 2, 55, 14);
             Loopinterval li1 = new Loopinterval(1,50,15);
             Loopinterval li2 = new Loopinterval(2, 55, 14);
             lt.VoegIntervalToe(li1);
-            lt.VoegIntervalToe(li2);
+            lt.VoegIntervalToe(li2);*/
             DataBeheerder db = new DataBeheerder();
-            Dictionary<int, LoopTraining> a = new Dictionary<int, LoopTraining>();
-            a.Add(1, lt);
-            db.OverzichtTraining(a,2);
+            /*Dictionary<int, LoopTraining> a = new Dictionary<int, LoopTraining>();
+            a.Add(1, lt);*/
+            Console.WriteLine("Overzicht klant");
+            db.OverzichtTrainingKlant(training,6);
+            Console.WriteLine("------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+            Console.WriteLine("------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+            Console.WriteLine("------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
 
+            Console.WriteLine("Overzicht training dag");
+
+            db.OverzichtTrainingDag(training, new DateTime(2021, 09, 26, 16, 53, 00));
         }
     }
 }

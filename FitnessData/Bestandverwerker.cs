@@ -19,12 +19,14 @@ namespace FitnessData
 
             using (StreamWriter sw = new StreamWriter(logBestandsNaam))
             using (StreamReader sr = new StreamReader(bronbestandsNaam)) {
-                /*try
-                {*/
+                //try
+                //{
                     string line;
                     while ((line = sr.ReadLine()) != null)
                     {
-                        line = line.Substring(line.IndexOf("(") + 1, line.IndexOf(")") - line.IndexOf("(") - 1);
+                        try
+                        {
+                            line = line.Substring(line.IndexOf("(") + 1, line.IndexOf(")") - line.IndexOf("(") - 1);
                         string[] elementen = line.Split(",");
                         int sessieNr = int.Parse(elementen[0]);
                         DateTime datum = DateTime.Parse(elementen[1].Trim('\''));
@@ -34,8 +36,7 @@ namespace FitnessData
                         int sequentieNr = int.Parse(elementen[5]);
                         int tijdsduurInterval = int.Parse(elementen[6]);
                         Double loopSnelheid = Double.Parse(elementen[7], CultureInfo.InvariantCulture);
-                        try
-                        {
+                       
                             Loopinterval li = new Loopinterval(sequentieNr, tijdsduurInterval, loopSnelheid);
                             if (training.ContainsKey(sessieNr))
                             {
@@ -48,22 +49,23 @@ namespace FitnessData
                                 training.Add(sessieNr, lt);
                             }
                         }
-                        catch (FitnessDataExceptions fde)
+                        catch (Exception ex)
                         {
+                        ex = new FitnessDataExceptions(ex.Message);
                             string data = "";
-                            foreach (DictionaryEntry d in fde.Data) data += (d.Key.ToString() + ":" + d.Value.ToString());
-                            sw.WriteLine(fde.Message + "|" + data);
+                            foreach (DictionaryEntry d in ex.Data) data += (d.Key.ToString() + ":" + d.Value.ToString());
+                            sw.WriteLine(ex.Message + "|" + data);
                         }
                     }
 
 
-                /*}
-                catch(Exception ex)
+                //}
+                //catch(Exception ex)
                 
-                {
-                    sw.WriteLine(ex.Message);
-                    throw;
-                }*/
+                //{
+                //    sw.WriteLine(ex.Message);
+                    
+                //}
                 return training;
             }
         }
